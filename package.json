@@ -1,0 +1,43 @@
+{
+    "name": "@tractorzoom/http-response",
+    "version": "0.0.1",
+    "description": "Library to build http responses for use in serverless projects",
+    "main": "lib/index.js",
+    "author": "@TractorZoom",
+    "license": "MIT",
+    "engines": {
+        "node": "10.x"
+    },
+    "scripts": {
+        "build": "./node_modules/.bin/babel src --out-dir lib --copy-files",
+        "coverage": "jest --coverage",
+        "test": "jest",
+        "commit": "git-cz",
+        "pretty-quick": "pretty-quick"
+    },
+    "devDependencies": {
+        "@babel/cli": "7.8.4",
+        "@babel/core": "7.9.0",
+        "@babel/preset-env": "7.9.0",
+        "chance": "1.1.4",
+        "jest": "24.9.0",
+        "@commitlint/cli": "8.3.5",
+        "@commitlint/config-conventional": "8.3.4",
+        "commitizen": "4.0.3",
+        "husky": "4.2.3",
+        "prettier": "1.19.1",
+        "pretty-quick": "2.0.1",
+        "@semantic-release/changelog": "3.0.6",
+        "@semantic-release/git": "8.0.0",
+        "@semantic-release/release-notes-generator": "7.3.5",
+        "semantic-release": "16.0.4"
+    },
+    "dependencies": {
+        "http-status-codes": "1.4.0"
+    },
+    "config": {
+        "commitizen": {
+            "path": "cz-conventional-changelog"
+        }
+    }
+}
