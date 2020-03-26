@@ -1,3 +1,9 @@
-const executeQuery = require('./execute-query');
+const httpResponse = require('./execute-query');
 
-module.exports = {executeQuery: executeQuery.default};
+module.exports = {
+    badRequest: httpResponse.badRequest,
+    createResponse: httpResponse.createResponse,
+    internalServerError: httpResponse.internalServerError,
+    methodNotAllowed: httpResponse.methodNotAllowed,
+    ok: httpResponse.ok,
+};
