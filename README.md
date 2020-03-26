@@ -38,7 +38,7 @@
 ##### Installation:
 
 ```bash
-npm i @tractorzoom/http-response
+npm i @tractorzoom/http-response@latest
 ```
 
 ##### Usage:
