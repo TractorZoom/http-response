@@ -1,4 +1,4 @@
-const {BAD_REQUEST, INTERNAL_SERVER_ERROR, METHOD_NOT_ALLOWED, OK} = require('http-status-codes');
+const {BAD_REQUEST, INTERNAL_SERVER_ERROR, METHOD_NOT_ALLOWED, OK, NOT_FOUND} = require('http-status-codes');
 import Chance from 'chance';
 import * as httpResponse from '../src/http-response';
 
@@ -50,6 +50,7 @@ describe('http response', () => {
         ${{key: chance.hash()}} | ${BAD_REQUEST}           | ${httpResponse.badRequest}
         ${{key: chance.hash()}} | ${INTERNAL_SERVER_ERROR} | ${httpResponse.internalServerError}
         ${{key: chance.hash()}} | ${METHOD_NOT_ALLOWED}    | ${httpResponse.methodNotAllowed}
+        ${{key: chance.hash()}} | ${NOT_FOUND}             | ${httpResponse.notFound}
         ${{key: chance.hash()}} | ${OK}                    | ${httpResponse.ok}
     `('should create a response when $httpReponseFunc is called', ({body, expectedStatus, httpReponseFunc}) => {
         // when
@@ -71,6 +72,7 @@ describe('http response', () => {
         ${{message: 'Bad Request'}}           | ${BAD_REQUEST}           | ${httpResponse.badRequest}
         ${{message: 'Internal Server Error'}} | ${INTERNAL_SERVER_ERROR} | ${httpResponse.internalServerError}
         ${{message: 'Method Not Allowed'}}    | ${METHOD_NOT_ALLOWED}    | ${httpResponse.methodNotAllowed}
+        ${{message: 'Not Found'}}             | ${NOT_FOUND}             | ${httpResponse.notFound}
         ${{message: 'OK'}}                    | ${OK}                    | ${httpResponse.ok}
     `(
         'should create a response with the default body  $httpReponseFunc is called',

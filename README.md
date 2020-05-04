@@ -27,6 +27,12 @@
 | --------- | ---- | -------- | ---------------------------------------------------------------------------------------- |
 | body      | any  | no       | the body to be stringified and sent with the response, default above in method signature |
 
+##### Method: `notFound(body = {message: 'Not Found'})`
+
+| parameter | type | required | description                                                                              |
+| --------- | ---- | -------- | ---------------------------------------------------------------------------------------- |
+| body      | any  | no       | the body to be stringified and sent with the response, default above in method signature |
+
 ##### Method: `ok(body = {message: 'OK'})`
 
 | parameter | type | required | description                                                                              |
