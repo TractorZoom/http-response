@@ -40,5 +40,20 @@
         "commitizen": {
             "path": "cz-conventional-changelog"
         }
-    }
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/TractorZoom/http-response.git"
+    },
+    "homepage": "https://github.com/TractorZoom/http-response",
+    "bugs": {
+        "url": "https://github.com/TractorZoom/http-response/issues"
+    },
+    "keywords": [
+        "aws",
+        "aws-lambda",
+        "api-gateway",
+        "http",
+        "response"
+    ]
 }
