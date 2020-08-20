@@ -1,6 +1,6 @@
 {
     "name": "@tractorzoom/http-response",
-    "version": "2.1.14",
+    "version": "2.1.15",
     "description": "Library to build http responses for use in serverless projects",
     "main": "lib/index.js",
     "author": "@TractorZoom",
