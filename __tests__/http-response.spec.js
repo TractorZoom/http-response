@@ -129,7 +129,7 @@ describe('http response', () => {
         ${{ message: 'Bad Request' }}           | ${BAD_REQUEST}           | ${httpResponse.badRequest}
         ${{ message: 'Internal Server Error' }} | ${INTERNAL_SERVER_ERROR} | ${httpResponse.internalServerError}
         ${{ message: 'Method Not Allowed' }}    | ${METHOD_NOT_ALLOWED}    | ${httpResponse.methodNotAllowed}
-        ${{ results: [] }}                      | ${MULTI_STATUS}          | ${httpResponse.multiStatus}
+        ${{ responses: [] }}                    | ${MULTI_STATUS}          | ${httpResponse.multiStatus}
         ${{ message: 'Not Found' }}             | ${NOT_FOUND}             | ${httpResponse.notFound}
         ${{ message: 'OK' }}                    | ${OK}                    | ${httpResponse.ok}
     `(
