@@ -5,6 +5,7 @@ module.exports = {
     createResponse: httpResponse.createResponse,
     internalServerError: httpResponse.internalServerError,
     methodNotAllowed: httpResponse.methodNotAllowed,
+    multiStatus: httpResponse.multiStatus,
     notFound: httpResponse.notFound,
     ok: httpResponse.ok,
 };
