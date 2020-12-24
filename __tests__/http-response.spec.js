@@ -1,5 +1,6 @@
 const {
     BAD_REQUEST,
+    FORBIDDEN,
     INTERNAL_SERVER_ERROR,
     METHOD_NOT_ALLOWED,
     MULTI_STATUS,
@@ -105,6 +106,7 @@ describe('http response', () => {
     it.each`
         body                      | expectedStatus           | httpReponseFunc
         ${{ key: chance.hash() }} | ${BAD_REQUEST}           | ${httpResponse.badRequest}
+        ${{ key: chance.hash() }} | ${FORBIDDEN}             | ${httpResponse.forbidden}
         ${{ key: chance.hash() }} | ${INTERNAL_SERVER_ERROR} | ${httpResponse.internalServerError}
         ${{ key: chance.hash() }} | ${METHOD_NOT_ALLOWED}    | ${httpResponse.methodNotAllowed}
         ${{ key: chance.hash() }} | ${NOT_FOUND}             | ${httpResponse.notFound}
@@ -127,6 +129,7 @@ describe('http response', () => {
     it.each`
         expectedBody                            | expectedStatus           | httpReponseFunc
         ${{ message: 'Bad Request' }}           | ${BAD_REQUEST}           | ${httpResponse.badRequest}
+        ${{ message: 'Forbidden' }}             | ${FORBIDDEN}             | ${httpResponse.forbidden}
         ${{ message: 'Internal Server Error' }} | ${INTERNAL_SERVER_ERROR} | ${httpResponse.internalServerError}
         ${{ message: 'Method Not Allowed' }}    | ${METHOD_NOT_ALLOWED}    | ${httpResponse.methodNotAllowed}
         ${{ responses: [] }}                    | ${MULTI_STATUS}          | ${httpResponse.multiStatus}
