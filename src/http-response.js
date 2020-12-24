@@ -1,5 +1,6 @@
 const {
     BAD_REQUEST,
+    FORBIDDEN,
     INTERNAL_SERVER_ERROR,
     METHOD_NOT_ALLOWED,
     MULTI_STATUS,
@@ -17,6 +18,8 @@ export const createResponse = (body = {}, status = OK) => ({
 });
 
 export const badRequest = (body = { message: 'Bad Request' }) => createResponse(body, BAD_REQUEST);
+
+export const forbidden = (body = { message: 'Forbidden' }) => createResponse(body, FORBIDDEN);
 
 export const internalServerError = (body = { message: 'Internal Server Error' }) =>
     createResponse(body, INTERNAL_SERVER_ERROR);
