@@ -1,4 +1,7 @@
-const httpResponse = require('./http-response');
+import { HttpResponse } from './http-response';
+import * as httpResponse from './http-response';
+
+export { HttpResponse };
 
 module.exports = {
     badRequest: httpResponse.badRequest,

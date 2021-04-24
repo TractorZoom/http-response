@@ -1,4 +1,4 @@
-const {
+import {
     BAD_REQUEST,
     FORBIDDEN,
     INTERNAL_SERVER_ERROR,
@@ -6,7 +6,7 @@ const {
     MULTI_STATUS,
     NOT_FOUND,
     OK,
-} = require('http-status-codes');
+} from 'http-status-codes';
 import Chance from 'chance';
 import * as httpResponse from '../src/http-response';
 
