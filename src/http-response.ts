@@ -26,7 +26,7 @@ export function createResponse<T>(body: T, status = OK): HttpResponse<T> {
 
 export const badRequest = (body): HttpResponse<any> => {
     if (body === undefined) {
-        return createResponse({ message: 'Bad Request' }, BAD_REQUEST);
+        body = { message: 'Bad Request' };
     }
 
     return createResponse(body, BAD_REQUEST);
@@ -34,7 +34,7 @@ export const badRequest = (body): HttpResponse<any> => {
 
 export const forbidden = (body): HttpResponse<any> => {
     if (body === undefined) {
-        return createResponse({ message: 'Forbidden' }, FORBIDDEN);
+        body = { message: 'Forbidden' };
     }
 
     return createResponse(body, FORBIDDEN);
@@ -42,7 +42,7 @@ export const forbidden = (body): HttpResponse<any> => {
 
 export const internalServerError = (body): HttpResponse<any> => {
     if (body === undefined) {
-        return createResponse({ message: 'Internal Server Error' }, INTERNAL_SERVER_ERROR);
+        body = { message: 'Internal Server Error' };
     }
 
     return createResponse(body, INTERNAL_SERVER_ERROR);
@@ -50,7 +50,7 @@ export const internalServerError = (body): HttpResponse<any> => {
 
 export const methodNotAllowed = (body): HttpResponse<any> => {
     if (body === undefined) {
-        return createResponse({ message: 'Method Not Allowed' }, METHOD_NOT_ALLOWED);
+        body = { message: 'Method Not Allowed' };
     }
 
     return createResponse(body, METHOD_NOT_ALLOWED);
@@ -73,7 +73,7 @@ export function multiStatus(responseObject = { error: [], success: [] }): HttpRe
 
 export function notFound(body): HttpResponse<any> {
     if (body === undefined) {
-        return createResponse({ message: 'Not Found' }, NOT_FOUND);
+        body = { message: 'Not Found' };
     }
 
     return createResponse(body, NOT_FOUND);
@@ -81,7 +81,7 @@ export function notFound(body): HttpResponse<any> {
 
 export function ok<T>(body: T): HttpResponse<T> {
     if (body === undefined) {
-        return createResponse(({ message: 'OK' } as unknown) as T, OK);
+        body = ({ message: 'OK' } as unknown) as T;
     }
 
     return createResponse(body, OK);
