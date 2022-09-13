@@ -24,7 +24,7 @@
         "@semantic-release/release-notes-generator": "10.0.3",
         "@tractorzoom/eslint-config": "0.3.2",
         "@tractorzoom/jest-config": "0.3.3",
-        "@types/aws-lambda": "8.10.103",
+        "@types/aws-lambda": "8.10.104",
         "chance": "1.1.8",
         "commitizen": "4.2.5",
         "husky": "4.3.8",
