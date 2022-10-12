@@ -1,1 +1,30 @@
-module.exports = require('@tractorzoom/eslint-config').tsConfig;
+module.exports = {
+    parser: '@typescript-eslint/parser',
+    extends: ['plugin:prettier/recommended', 'plugin:@typescript-eslint/recommended'],
+    parserOptions: {
+        ecmaVersion: 2020,
+        sourceType: 'module',
+        project: './tsconfig.json',
+    },
+    plugins: ['typescript-sort-keys'],
+    rules: {
+        'sort-imports': ['error', { memberSyntaxSortOrder: ['multiple', 'single', 'all', 'none'] }],
+        'sort-keys': 'error',
+        'newline-after-var': ['error', 'always'],
+        'newline-before-return': 'error',
+        'no-param-reassign': 'off',
+        'no-console': ['error', { allow: ['warn', 'error', 'debug', 'info'] }],
+        'padding-line-between-statements': [
+            'error',
+            { blankLine: 'always', prev: ['const', 'let', 'var'], next: '*' },
+            { blankLine: 'any', prev: ['const', 'let', 'var'], next: ['const', 'let', 'var'] },
+        ],
+        '@typescript-eslint/interface-name-prefix': 'off',
+        '@typescript-eslint/no-floating-promises': 'error',
+        '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
+        '@typescript-eslint/explicit-module-boundary-types': 'off',
+        '@typescript-eslint/no-var-requires': 'error',
+        'typescript-sort-keys/interface': 'error',
+        'typescript-sort-keys/string-enum': 'error',
+    },
+};

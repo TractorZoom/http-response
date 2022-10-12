@@ -1,1 +1,4 @@
-module.exports = require('@tractorzoom/jest-config').babelConfig;
+module.exports = {
+    plugins: ['@babel/plugin-transform-runtime'],
+    presets: ['@babel/preset-env'],
+};
