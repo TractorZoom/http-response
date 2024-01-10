@@ -9,40 +9,28 @@
         "build": "rimraf lib && tsc && cp package.json lib",
         "coverage": "jest --coverage",
         "test": "jest",
-        "commit": "git-cz",
-        "prettier:all": "prettier --write './**/*.*'",
-        "pretty-quick": "pretty-quick"
+        "prettier:all": "prettier --write './**/*.*'"
     },
     "devDependencies": {
-        "@babel/cli": "7.20.7",
-        "@babel/core": "7.20.12",
-        "@babel/plugin-transform-runtime": "7.19.6",
-        "@babel/preset-env": "7.20.2",
-        "@commitlint/cli": "17.4.2",
-        "@commitlint/config-conventional": "17.4.2",
-        "@semantic-release/changelog": "6.0.2",
+        "@biomejs/biome": "1.5.1",
+        "@commitlint/cli": "18.4.4",
+        "@commitlint/config-conventional": "18.4.4",
         "@semantic-release/git": "10.0.1",
-        "@semantic-release/release-notes-generator": "10.0.3",
-        "@types/aws-lambda": "8.10.109",
-        "@typescript-eslint/eslint-plugin": "5.48.0",
-        "@typescript-eslint/parser": "5.48.0",
-        "babel-jest": "29.3.1",
-        "chance": "1.1.9",
-        "commitizen": "4.2.6",
-        "eslint": "8.31.0",
-        "eslint-config-prettier": "8.6.0",
-        "eslint-plugin-prettier": "4.2.1",
-        "eslint-plugin-typescript-sort-keys": "2.1.0",
-        "husky": "4.3.8",
-        "jest": "29.3.1",
-        "prettier": "2.8.3",
-        "pretty-quick": "3.1.3",
-        "rimraf": "3.0.2",
-        "semantic-release": "20.0.2",
-        "ts-jest": "29.0.3"
+        "@types/aws-lambda": "8.10.131",
+        "@types/jest": "29.5.11",
+        "chance": "1.1.11",
+        "commitizen": "4.3.0",
+        "husky": "8.0.3",
+        "jest": "29.7.0",
+        "prettier": "3.1.1",
+        "rimraf": "5.0.5",
+        "semantic-release": "22.0.12",
+        "ts-jest": "29.1.1",
+        "typescript": "5.3.3"
     },
     "dependencies": {
-        "http-status-codes": "2.2.0"
+        "http-status-codes": "2.3.0",
+        "lint-staged": "15.2.0"
     },
     "config": {
         "commitizen": {
@@ -63,5 +51,10 @@
         "api-gateway",
         "http",
         "response"
-    ]
+    ],
+    "lint-staged": {
+        "{src/**/*.ts,__tests__/**/*.spec.js}": [
+            "npx biome check --apply"
+        ]
+    }
 }

@@ -1,23 +1,16 @@
-import {
-    BAD_REQUEST,
-    FORBIDDEN,
-    INTERNAL_SERVER_ERROR,
-    METHOD_NOT_ALLOWED,
-    MULTI_STATUS,
-    NOT_FOUND,
-    OK,
-} from 'http-status-codes';
 import { APIGatewayProxyResult } from 'aws-lambda';
+import { StatusCodes } from 'http-status-codes';
 
 export interface HttpResponse<T> extends APIGatewayProxyResult {
     type?: T;
 }
 
-export function createResponse<T>(body: T, status = OK): HttpResponse<T> {
+export function createResponse<T>(body?: T, status = StatusCodes.OK): HttpResponse<T> {
     return {
         body: body === undefined ? '{}' : JSON.stringify(body),
         headers: {
             'Access-Control-Allow-Origin': '*',
+            'Document-Policy': 'js-profiling',
         },
         isBase64Encoded: false,
         statusCode: status,
@@ -29,7 +22,7 @@ export const badRequest = (body): HttpResponse<any> => {
         body = { message: 'Bad Request' };
     }
 
-    return createResponse(body, BAD_REQUEST);
+    return createResponse(body, StatusCodes.BAD_REQUEST);
 };
 
 export const forbidden = (body): HttpResponse<any> => {
@@ -37,7 +30,7 @@ export const forbidden = (body): HttpResponse<any> => {
         body = { message: 'Forbidden' };
     }
 
-    return createResponse(body, FORBIDDEN);
+    return createResponse(body, StatusCodes.FORBIDDEN);
 };
 
 export const internalServerError = (body): HttpResponse<any> => {
@@ -45,7 +38,7 @@ export const internalServerError = (body): HttpResponse<any> => {
         body = { message: 'Internal Server Error' };
     }
 
-    return createResponse(body, INTERNAL_SERVER_ERROR);
+    return createResponse(body, StatusCodes.INTERNAL_SERVER_ERROR);
 };
 
 export const methodNotAllowed = (body): HttpResponse<any> => {
@@ -53,7 +46,7 @@ export const methodNotAllowed = (body): HttpResponse<any> => {
         body = { message: 'Method Not Allowed' };
     }
 
-    return createResponse(body, METHOD_NOT_ALLOWED);
+    return createResponse(body, StatusCodes.METHOD_NOT_ALLOWED);
 };
 
 type Responses = { responses: HttpResponse<{ message: any }>[] };
@@ -62,13 +55,13 @@ export function multiStatus(responseObject = { error: [], success: [] }): HttpRe
     const body: Responses = { responses: [] };
 
     responseObject.success.forEach((element) => {
-        body.responses.push(createResponse({ message: element }, OK));
+        body.responses.push(createResponse({ message: element }, StatusCodes.OK));
     });
     responseObject.error.forEach((element) => {
-        body.responses.push(createResponse({ message: element }, INTERNAL_SERVER_ERROR));
+        body.responses.push(createResponse({ message: element }, StatusCodes.INTERNAL_SERVER_ERROR));
     });
 
-    return createResponse<Responses>(body, MULTI_STATUS);
+    return createResponse<Responses>(body, StatusCodes.MULTI_STATUS);
 }
 
 export function notFound(body): HttpResponse<any> {
@@ -76,13 +69,13 @@ export function notFound(body): HttpResponse<any> {
         body = { message: 'Not Found' };
     }
 
-    return createResponse(body, NOT_FOUND);
+    return createResponse(body, StatusCodes.NOT_FOUND);
 }
 
 export function ok<T>(body: T): HttpResponse<T> {
     if (body === undefined) {
-        body = ({ message: 'OK' } as unknown) as T;
+        body = { message: 'OK' } as unknown as T;
     }
 
-    return createResponse(body, OK);
+    return createResponse(body, StatusCodes.OK);
 }

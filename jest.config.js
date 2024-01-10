@@ -12,7 +12,7 @@ module.exports = {
     resetMocks: true,
     restoreMocks: true,
     transform: {
-        '^.+\\.(js|jsx)$': 'babel-jest',
         '^.+\\.(ts|tsx)?$': 'ts-jest',
     },
+    testPathIgnorePatterns: ['/node_modules/', '/lib/'],
 };
