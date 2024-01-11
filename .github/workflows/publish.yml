@@ -39,9 +39,9 @@ jobs:
             - name: publish
               run: npx semantic-release
               env:
-                  GITHUB_TOKEN: ${{ secrets.PACKAGE_KEY }}
-                  GH_TOKEN: ${{ secrets.PACKAGE_KEY }}
+                  GITHUB_TOKEN: ${{ secrets.ORG_PROJECT_GITHUB_TOKEN }}
+                  GH_TOKEN: ${{ secrets.ORG_PROJECT_GITHUB_TOKEN }}
                   NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-                  NODE_AUTH_TOKEN: ${{secrets.PACKAGE_KEY }}
+                  NODE_AUTH_TOKEN: ${{secrets.ORG_PROJECT_GITHUB_TOKEN }}
                   NPM_PRIVATE_READ: ${{ secrets.NPM_TOKEN }}
                   HUSKY: 0
