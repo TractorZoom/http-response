@@ -9,30 +9,39 @@ jobs:
     build-and-test:
         runs-on: ubuntu-latest
         steps:
-            - uses: actions/checkout@v3
-            - uses: actions/setup-node@v3
+            - uses: actions/checkout@v4
+            - uses: actions/setup-node@v4
               with:
-                  node-version: 16
-            - run: npm ci
-            - run: npm run coverage
-            - run: npm test
+                  node-version: 20
+            - run: |
+                  yarn install --frozen-lockfile
+                  yarn test
 
     npm-publish:
         needs: build-and-test
         runs-on: ubuntu-latest
+        permissions:
+            packages: write
+            contents: read
         steps:
-            - uses: actions/checkout@v3
-            - uses: actions/setup-node@v3
+            - uses: actions/checkout@v4
+            - uses: actions/setup-node@v4
               with:
-                  node-version: 16
-            - run: npm ci
-            - run: npm run build
-            - name: Semantic Release
-              uses: cycjimmy/semantic-release-action@v2
-              id: semantic
-              with:
-                  branch: master
+                  node-version: 20
+            - run: yarn install --frozen-lockfile
+            - run: yarn build
+
+            - name: Configure Git User
+              run: |
+                  git config --global user.email "dev-support@tractorzoom.com"
+                  git config --global user.name "ci@$GITHUB_ACTOR"
+
+            - name: publish
+              run: npx semantic-release
               env:
-                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                  GITHUB_TOKEN: ${{ secrets.PACKAGE_KEY }}
+                  GH_TOKEN: ${{ secrets.PACKAGE_KEY }}
                   NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-                  NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+                  NODE_AUTH_TOKEN: ${{secrets.PACKAGE_KEY }}
+                  NPM_PRIVATE_READ: ${{ secrets.NPM_TOKEN }}
+                  HUSKY: 0

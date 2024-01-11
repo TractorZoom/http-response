@@ -25,20 +25,6 @@ module.exports = {
                 ],
             },
         ],
-        [
-            '@semantic-release/release-notes-generator',
-            {
-                preset: 'angular',
-                parserOpts: {
-                    noteKeywords: ['breaking', 'chore'],
-                },
-                writerOpts: {
-                    commitsSort: ['subject', 'scope'],
-                },
-            },
-        ],
-        '@semantic-release/changelog',
-        '@semantic-release/github',
         '@semantic-release/npm',
         [
             '@semantic-release/git',

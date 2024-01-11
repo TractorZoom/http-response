@@ -1,13 +1,5 @@
-import {
-    BAD_REQUEST,
-    FORBIDDEN,
-    INTERNAL_SERVER_ERROR,
-    METHOD_NOT_ALLOWED,
-    MULTI_STATUS,
-    NOT_FOUND,
-    OK,
-} from 'http-status-codes';
 import Chance from 'chance';
+import { StatusCodes } from 'http-status-codes';
 import * as httpResponse from '../src/http-response';
 
 const chance = new Chance();
@@ -18,7 +10,12 @@ describe('http response', () => {
     it('should create a response with provided body and status', () => {
         // given
         const body = { key: chance.hash() };
-        const status = chance.pickone([BAD_REQUEST, INTERNAL_SERVER_ERROR, METHOD_NOT_ALLOWED, OK]);
+        const status = chance.pickone([
+            StatusCodes.BAD_REQUEST,
+            StatusCodes.INTERNAL_SERVER_ERROR,
+            StatusCodes.METHOD_NOT_ALLOWED,
+            StatusCodes.OK,
+        ]);
 
         // when
         const response = httpResponse.createResponse(body, status);
@@ -28,6 +25,7 @@ describe('http response', () => {
             body: JSON.stringify(body),
             headers: {
                 'Access-Control-Allow-Origin': '*',
+                'Document-Policy': 'js-profiling',
             },
             isBase64Encoded: false,
             statusCode: status,
@@ -37,7 +35,7 @@ describe('http response', () => {
     it('should create a response with the defaults', () => {
         // given
         const body = {};
-        const status = OK;
+        const status = StatusCodes.OK;
 
         // when
         const response = httpResponse.createResponse();
@@ -47,6 +45,7 @@ describe('http response', () => {
             body: JSON.stringify(body),
             headers: {
                 'Access-Control-Allow-Origin': '*',
+                'Document-Policy': 'js-profiling',
             },
             isBase64Encoded: false,
             statusCode: status,
@@ -70,25 +69,28 @@ describe('http response', () => {
                     body: JSON.stringify({ message: success }),
                     headers: {
                         'Access-Control-Allow-Origin': '*',
+                        'Document-Policy': 'js-profiling',
                     },
                     isBase64Encoded: false,
-                    statusCode: OK,
+                    statusCode: StatusCodes.OK,
                 },
                 {
                     body: JSON.stringify({ message: error1 }),
                     headers: {
                         'Access-Control-Allow-Origin': '*',
+                        'Document-Policy': 'js-profiling',
                     },
                     isBase64Encoded: false,
-                    statusCode: INTERNAL_SERVER_ERROR,
+                    statusCode: StatusCodes.INTERNAL_SERVER_ERROR,
                 },
                 {
                     body: JSON.stringify({ message: error2 }),
                     headers: {
                         'Access-Control-Allow-Origin': '*',
+                        'Document-Policy': 'js-profiling',
                     },
                     isBase64Encoded: false,
-                    statusCode: INTERNAL_SERVER_ERROR,
+                    statusCode: StatusCodes.INTERNAL_SERVER_ERROR,
                 },
             ],
         };
@@ -97,20 +99,21 @@ describe('http response', () => {
             body: JSON.stringify(expectedBody),
             headers: {
                 'Access-Control-Allow-Origin': '*',
+                'Document-Policy': 'js-profiling',
             },
             isBase64Encoded: false,
-            statusCode: MULTI_STATUS,
+            statusCode: StatusCodes.MULTI_STATUS,
         });
     });
 
     it.each`
-        body                      | expectedStatus           | httpReponseFunc
-        ${{ key: chance.hash() }} | ${BAD_REQUEST}           | ${httpResponse.badRequest}
-        ${{ key: chance.hash() }} | ${FORBIDDEN}             | ${httpResponse.forbidden}
-        ${{ key: chance.hash() }} | ${INTERNAL_SERVER_ERROR} | ${httpResponse.internalServerError}
-        ${{ key: chance.hash() }} | ${METHOD_NOT_ALLOWED}    | ${httpResponse.methodNotAllowed}
-        ${{ key: chance.hash() }} | ${NOT_FOUND}             | ${httpResponse.notFound}
-        ${{ key: chance.hash() }} | ${OK}                    | ${httpResponse.ok}
+        body                      | expectedStatus                       | httpReponseFunc
+        ${{ key: chance.hash() }} | ${StatusCodes.BAD_REQUEST}           | ${httpResponse.badRequest}
+        ${{ key: chance.hash() }} | ${StatusCodes.FORBIDDEN}             | ${httpResponse.forbidden}
+        ${{ key: chance.hash() }} | ${StatusCodes.INTERNAL_SERVER_ERROR} | ${httpResponse.internalServerError}
+        ${{ key: chance.hash() }} | ${StatusCodes.METHOD_NOT_ALLOWED}    | ${httpResponse.methodNotAllowed}
+        ${{ key: chance.hash() }} | ${StatusCodes.NOT_FOUND}             | ${httpResponse.notFound}
+        ${{ key: chance.hash() }} | ${StatusCodes.OK}                    | ${httpResponse.ok}
     `('should create a response when $httpReponseFunc is called', ({ body, expectedStatus, httpReponseFunc }) => {
         // when
         const response = httpReponseFunc(body);
@@ -120,6 +123,7 @@ describe('http response', () => {
             body: JSON.stringify(body),
             headers: {
                 'Access-Control-Allow-Origin': '*',
+                'Document-Policy': 'js-profiling',
             },
             isBase64Encoded: false,
             statusCode: expectedStatus,
@@ -127,14 +131,14 @@ describe('http response', () => {
     });
 
     it.each`
-        expectedBody                            | expectedStatus           | httpReponseFunc
-        ${{ message: 'Bad Request' }}           | ${BAD_REQUEST}           | ${httpResponse.badRequest}
-        ${{ message: 'Forbidden' }}             | ${FORBIDDEN}             | ${httpResponse.forbidden}
-        ${{ message: 'Internal Server Error' }} | ${INTERNAL_SERVER_ERROR} | ${httpResponse.internalServerError}
-        ${{ message: 'Method Not Allowed' }}    | ${METHOD_NOT_ALLOWED}    | ${httpResponse.methodNotAllowed}
-        ${{ responses: [] }}                    | ${MULTI_STATUS}          | ${httpResponse.multiStatus}
-        ${{ message: 'Not Found' }}             | ${NOT_FOUND}             | ${httpResponse.notFound}
-        ${{ message: 'OK' }}                    | ${OK}                    | ${httpResponse.ok}
+        expectedBody                            | expectedStatus                       | httpReponseFunc
+        ${{ message: 'Bad Request' }}           | ${StatusCodes.BAD_REQUEST}           | ${httpResponse.badRequest}
+        ${{ message: 'Forbidden' }}             | ${StatusCodes.FORBIDDEN}             | ${httpResponse.forbidden}
+        ${{ message: 'Internal Server Error' }} | ${StatusCodes.INTERNAL_SERVER_ERROR} | ${httpResponse.internalServerError}
+        ${{ message: 'Method Not Allowed' }}    | ${StatusCodes.METHOD_NOT_ALLOWED}    | ${httpResponse.methodNotAllowed}
+        ${{ responses: [] }}                    | ${StatusCodes.MULTI_STATUS}          | ${httpResponse.multiStatus}
+        ${{ message: 'Not Found' }}             | ${StatusCodes.NOT_FOUND}             | ${httpResponse.notFound}
+        ${{ message: 'OK' }}                    | ${StatusCodes.OK}                    | ${httpResponse.ok}
     `(
         'should create a response with the default body  $httpReponseFunc is called',
         ({ expectedBody, expectedStatus, httpReponseFunc }) => {
@@ -146,6 +150,7 @@ describe('http response', () => {
                 body: JSON.stringify(expectedBody),
                 headers: {
                     'Access-Control-Allow-Origin': '*',
+                    'Document-Policy': 'js-profiling',
                 },
                 isBase64Encoded: false,
                 statusCode: expectedStatus,
