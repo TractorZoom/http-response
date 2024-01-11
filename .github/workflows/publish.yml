@@ -25,6 +25,9 @@ jobs:
             contents: read
         steps:
             - uses: actions/checkout@v4
+              with:
+                  submodules: recursive
+                  token: ${{ secrets.PACKAGE_KEY }}
             - uses: actions/setup-node@v4
               with:
                   node-version: 20
@@ -39,9 +42,9 @@ jobs:
             - name: publish
               run: npx semantic-release
               env:
-                  GITHUB_TOKEN: ${{ secrets.ORG_PROJECT_GITHUB_TOKEN }}
-                  GH_TOKEN: ${{ secrets.ORG_PROJECT_GITHUB_TOKEN }}
+                  GITHUB_TOKEN: ${{ secrets.PACKAGE_KEY }}
+                  GH_TOKEN: ${{ secrets.PACKAGE_KEY }}
                   NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-                  NODE_AUTH_TOKEN: ${{secrets.ORG_PROJECT_GITHUB_TOKEN }}
+                  NODE_AUTH_TOKEN: ${{secrets.PACKAGE_KEY }}
                   NPM_PRIVATE_READ: ${{ secrets.NPM_TOKEN }}
                   HUSKY: 0
